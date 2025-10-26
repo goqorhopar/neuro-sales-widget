@@ -1,0 +1,354 @@
+/* Neuro Sales Widget Styles */
+
+/* Основной контейнер виджета */
+#neuro-sales-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Кнопка открытия/закрытия */
+.neuro-toggle-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  border: none;
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.neuro-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.5);
+}
+
+.neuro-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.neuro-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Окно чата */
+.neuro-chat-window {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 380px;
+  height: 550px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Шапка чата */
+.neuro-chat-header {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.neuro-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.neuro-header-icon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.neuro-header-title {
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.neuro-header-company {
+  font-size: 12px;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.neuro-close-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  line-height: 1;
+}
+
+.neuro-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Область сообщений */
+.neuro-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Скроллбар */
+.neuro-chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.neuro-chat-messages::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.neuro-chat-messages::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.neuro-chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Сообщения */
+.neuro-message {
+  display: flex;
+  gap: 10px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.neuro-message-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.neuro-message-bot .neuro-message-avatar {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+}
+
+.neuro-message-user .neuro-message-avatar {
+  background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+}
+
+.neuro-message-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: calc(100% - 46px);
+}
+
+.neuro-message-bubble {
+  padding: 12px 16px;
+  border-radius: 16px;
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+.neuro-message-bot .neuro-message-bubble {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.neuro-message-user .neuro-message-bubble {
+  background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  color: white;
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+
+.neuro-message-user {
+  flex-direction: row-reverse;
+}
+
+.neuro-message-user .neuro-message-content {
+  align-items: flex-end;
+}
+
+.neuro-message-time {
+  font-size: 11px;
+  color: #999;
+  padding: 0 4px;
+}
+
+/* Индикатор печати */
+.neuro-typing-indicator .neuro-message-bubble {
+  display: flex;
+  gap: 4px;
+  padding: 12px 16px;
+}
+
+.neuro-typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #999;
+  animation: typing 1.4s infinite;
+}
+
+.neuro-typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.neuro-typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  30% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+/* Область ввода */
+.neuro-chat-input-area {
+  padding: 16px 20px;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.neuro-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 24px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.neuro-input:focus {
+  border-color: #4CAF50;
+}
+
+.neuro-send-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.neuro-send-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.neuro-send-btn:active {
+  transform: scale(0.95);
+}
+
+/* Подпись */
+.neuro-powered-by {
+  padding: 8px 20px;
+  text-align: center;
+  font-size: 11px;
+  color: #999;
+  background: #fafafa;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .neuro-chat-window {
+    width: calc(100vw - 40px);
+    height: calc(100vh - 120px);
+    bottom: 80px;
+    right: 20px;
+  }
+  
+  #neuro-sales-widget {
+    right: 20px;
+    bottom: 20px;
+  }
+}
+
+/* Анимация при закрытии */
+.neuro-widget-closed .neuro-chat-window {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
