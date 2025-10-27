@@ -93,6 +93,9 @@ async function sendTelegramNotification(leadData) {
     return;
   }
   
+  // Поддержка нескольких chat_id через запятую
+  const chatIds = process.env.TELEGRAM_CHAT_ID.split(',').map(id => id.trim()).filter(id => id);
+  
   const { stage, contacts, userMessage, conversationHistory } = leadData;
   
   const lastMessages = conversationHistory
@@ -110,22 +113,30 @@ async function sendTelegramNotification(leadData) {
 📊 Этап: ${stage}
 ${contactsInfo}
 💬 Сообщение: "${userMessage}"
-
 📜 История (последние 3 сообщения):
 ${lastMessages}`;
   
-  try {
-    await axios.post(
+  // Отправка уведомления всем администраторам
+  const sendPromises = chatIds.map(chatId => 
+    axios.post(
       `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
       {
-        chat_id: process.env.TELEGRAM_CHAT_ID,
+        chat_id: chatId,
         text: message,
         parse_mode: 'HTML'
       }
-    );
-    console.log('✅ Уведомление отправлено в Telegram');
+    ).catch(error => {
+      console.error(`❌ Ошибка отправки в Telegram (chat_id: ${chatId}):`, error.message);
+      return null;
+    })
+  );
+  
+  try {
+    const results = await Promise.allSettled(sendPromises);
+    const successCount = results.filter(r => r.status === 'fulfilled' && r.value !== null).length;
+    console.log(`✅ Уведомление отправлено ${successCount} из ${chatIds.length} администраторам`);
   } catch (error) {
-    console.error('❌ Ошибка отправки в Telegram:', error.message);
+    console.error('❌ Критическая ошибка отправки в Telegram:', error.message);
   }
 }
 
